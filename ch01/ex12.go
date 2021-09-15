@@ -7,7 +7,6 @@
 package main
 
 import (
-	"fmt"
 	"image"
 	"image/color"
 	"image/gif"
@@ -27,8 +26,10 @@ func main() {
 //!+handler
 // handler echoes the HTTP request.
 func handler(w http.ResponseWriter, r *http.Request) {
-	cycles, _ := strconv.Atoi(r.FormValue("cycles"))
-	fmt.Println(r.Form)
+	cycles := 5
+	if c := r.FormValue("cycles"); c != "" {
+		cycles, _ = strconv.Atoi(r.FormValue("cycles"))
+	}
 
 	lissajous(w, cycles)
 }
