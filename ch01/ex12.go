@@ -27,7 +27,7 @@ func main() {
 //!+handler
 // handler echoes the HTTP request.
 func handler(w http.ResponseWriter, r *http.Request) {
-	cycles, _ := strconv.Atoi(r.Form["cycles"])
+	cycles, _ := strconv.Atoi(r.FormValue("cycles"))
 	fmt.Println(r.Form)
 
 	lissajous(w, cycles)
