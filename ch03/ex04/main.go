@@ -29,27 +29,28 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	width, _ := strconv.Atoi(q.Get("width"))
 	color := q.Get("color")
 	c := canvas.Canvas{
-		width,
-		height,
-		100,
-		30.0,
-		math.Pi / 6,
+		Width:   width,
+		Height:  height,
+		Cells:   100.0,
+		Xyrange: 30.0,
+		Angle:   math.Pi / 6,
+		Color:   color,
 	}
 
-	c.scale.xy = float64(c.width / 2 / c.xyrange)
-	c.scale.z = float64(c.height) * 0.4
+	c.Scale.Xy = float64(float64(c.Width) / float64(2) / c.Xyrange)
+	c.Scale.Z = float64(c.Height) * 0.4
 
 	fmt.Fprintf(w, "<svg xmlns='http://www.w3.org/2000/svg' "+
-		"style='stroke: grey; fill: #%s; stroke-width: 0.7' "+
-		"width='%d' height='%d'>", color, width, height)
-	for i := 0; i < c.cells; i++ {
-		for j := 0; j < c.cells; j++ {
-			ax, ay := c.corner(i+1, j)
-			bx, by := c.corner(i, j)
-			cx, cy := c.corner(i, j+1)
-			dx, dy := c.corner(i+1, j+1)
-			fmt.Fprintf(w, "<polygon points='%g,%g %g,%g %g,%g %g,%g' />\n",
-				ax, ay, bx, by, cx, cy, dx, dy)
+		"style='stroke: grey; fill: white; stroke-width: 0.7' "+
+		"width='%d' height='%d'>", width, height)
+	for i := 0; i < c.Cells; i++ {
+		for j := 0; j < c.Cells; j++ {
+			ax, ay := c.Corner(i+1, j)
+			bx, by := c.Corner(i, j)
+			cx, cy := c.Corner(i, j+1)
+			dx, dy := c.Corner(i+1, j+1)
+			fmt.Fprintf(w, "<polygon points='%g,%g %g,%g %g,%g %g,%g'  fill='#%s'/>\n",
+				ax, ay, bx, by, cx, cy, dx, dy, c.Color)
 		}
 	}
 	fmt.Fprintln(w, "</svg>")
