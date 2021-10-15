@@ -47,7 +47,6 @@ func main() {
 		}
 	}
 	fmt.Println("</svg>")
-	fmt.Println(maxz)
 }
 
 func corner(i, j int) (float64, float64, float64) {
