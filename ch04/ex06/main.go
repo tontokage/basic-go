@@ -81,6 +81,7 @@ func compressSpaces(b []byte) ([]byte, error) {
 
 func isSpace(b []byte) bool {
 	r, _ := utf8.DecodeRune(b)
+
 	switch uint32(r) {
 	case '\t', '\n', '\v', '\f', '\r', ' ', 0x85, 0xA0:
 		return true

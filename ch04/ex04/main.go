@@ -17,12 +17,10 @@ func rotate(s []int, cnt int) {
 	target := make([]int, len(s[:cnt]))
 	copy(target, s[:cnt])
 
-	fmt.Println(target)
 	for i := range s {
 		// そのあとは末尾に移動する対象のindexから入れる
-		if len(s) <= i+cnt {
-			fmt.Println(cnt + i - len(s))
-			s[i] = target[cnt+i-len(s)]
+		if l := len(s); l <= i+cnt {
+			s[i] = target[cnt+i-l]
 			continue
 		}
 
